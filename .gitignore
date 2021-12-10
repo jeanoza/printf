@@ -1,0 +1,7 @@
+# inutil for commit
+*.out
+a.out.dSYM
+*.o
+
+
+*.txt
