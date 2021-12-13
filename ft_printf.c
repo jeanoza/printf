@@ -6,7 +6,7 @@
 /*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/13 21:08:28 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2021/12/13 21:08:58 by kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (res);
 }
-
 
 
 int	main(int ac, char **av)
