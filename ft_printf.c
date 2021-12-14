@@ -6,7 +6,7 @@
 /*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/14 01:15:18 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2021/12/14 01:17:36 by kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 
-	printf("\n***	***	test with:	%s	<===	***	***	***	***	***	*\n\n	ft_printf:			printf:\n\n", av[1]);
+	printf("\n***	***	test with:	%s	<===	***	***	***	***	***	*\n\n*	ft_printf:			printf:						*\n\n", av[1]);
 	//%c
 	printf("		(return:%d)\t", ft_printf("*	c:%c", *(av[1])));
 	printf("		(return:%d)			*\n\n", printf("c:%c", *(av[1])));
