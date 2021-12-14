@@ -6,7 +6,7 @@
 /*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/13 21:08:58 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2021/12/14 01:15:18 by kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,48 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	ft_putnbr(int nb, int *count)
+void	ft_putnbr_u(unsigned int nb, int *count)
 {
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		nb = -nb;
-	}
 	if (nb > 9)
-		ft_putnbr(nb / 10, count);
+		ft_putnbr_u(nb / 10, count);
 	ft_putchar((nb % 10) + 48);
 	*count += 1;
 }
+
+void	ft_putnbr(int nb, int *count)
+{
+	if (nb == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		*count += 11;
+	}
+	else
+	{
+		if (nb < 0)
+		{
+			ft_putchar('-');
+			nb = -nb;
+			*count += 1;
+		}
+		if (nb > 9)
+			ft_putnbr(nb / 10, count);
+		ft_putchar((nb % 10) + 48);
+		*count += 1;
+	}
+}
+
+int	ft_print_int_u(va_list ap)
+{
+	unsigned int	nb;
+	int				count;
+
+	nb = va_arg(ap, unsigned int);
+	count = 0;
+	if (ap)
+		ft_putnbr_u(nb, &count);
+	return (count);
+}
+
 int	ft_print_int(va_list ap)
 {
 	int	nb;
@@ -82,7 +112,7 @@ int	ft_printf(const char *format, ...)
 	va_list	ap;
 
 	i = 0;
-	res = 3;
+	res = 2;
 	va_start(ap, format);
 	while (format && format[i])
 	{
@@ -93,9 +123,10 @@ int	ft_printf(const char *format, ...)
 				res += ft_print_char(ap);
 			if (format[i] == 's')
 				res += ft_print_str(ap);
-			if (format[i] == 'd')
+			if (format[i] == 'd' || format[i] == 'i')
 				res += ft_print_int(ap);
-				
+			if (format[i] == 'u')
+				res += ft_print_int_u(ap);
 		}
 		else
 			write(1, &format[i], 1);
@@ -110,23 +141,39 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 
-	//mine
-	printf("\nft_printf:\n");
-	printf("	(return:%d)\n", ft_printf("c	:%c", *(av[1])));
-	printf("	(return:%d)\n", ft_printf("s	:%s", (av[1])));
-	printf("	(return:%d)\n", ft_printf("d	:%d", 2147483647));
+	printf("\n***	***	test with:	%s	<===	***	***	***	***	***	*\n\n	ft_printf:			printf:\n\n", av[1]);
+	//%c
+	printf("		(return:%d)\t", ft_printf("*	c:%c", *(av[1])));
+	printf("		(return:%d)			*\n\n", printf("c:%c", *(av[1])));
 
-	//char....
-	printf("\nprintf:\n");
-	printf("	(return:%d)\n", printf("c	:%c", *(av[1])));
-	printf("	(return:%d)\n", printf("s	:%s", (av[1])));
-	//return min 4(when 1 char, 3 + 1), %p return 17(3 + 14(2(0x)+ 12))
+	//%s
+	printf("		(return:%d)\t", ft_printf("*	s:%s", (av[1])));
+	printf("		(return:%d)			*\n\n", printf("s:%s", (av[1])));
 
-	//numbers...
-	// printf("sizeof	:%lu\n", sizeof atoi(av[1]));// sizeof int = 4
-	printf("	(return:%d)\n", printf("d	:%d", 2147483647));
-	printf("	(return:%d)\n", printf("i	:%i", atoi(av[1]))); // base 10(decimal)
-	printf("	(return:%d)\n", printf("u	:%u", atoi(av[1]))); // unsigned int
+	//%d
+	printf("		(return:%d)\t", ft_printf("*	d:%d",	atoi(av[1])));
+	printf("		(return:%d)			*\n", printf("d:%d",		atoi(av[1])));
+	printf("	(return:%d)\t", ft_printf("*	d:%d",	2147483647));
+	printf("	(return:%d)	[int max]	*\n\n", printf("d:%d",		2147483647));
+	// printf("	(return:%d)\t", ft_printf("d:%d",	-2147483648));
+	// printf("	(return:%d)	[int min]\n", printf("d:%d",		-2147483648));
+
+	//%i
+	printf("		(return:%d)\t", ft_printf("*	i:%i", atoi(av[1])));
+	printf("		(return:%d)			*\n", printf("i:%i", atoi(av[1]))); // base 10(decimal)
+	printf("	(return:%d)\t", ft_printf("*	i:%i",	2147483647));
+	printf("	(return:%d)	[int max]	*\n\n", printf("i:%i",		2147483647));
+
+	//%u
+	printf("		(return:%d)\t", ft_printf("*	u:%u", atoi(av[1]))); // unsigned int
+	printf("		(return:%d)*\n", printf("u:%u", atoi(av[1]))); // unsigned int
+	printf("	(return:%d)\t", ft_printf("*	u:%u",	4294967295));
+	printf("	(return:%d)	[unsigned max]	*\n", printf("u:%u",	4294967295));
+	printf("	(return:%d)\t", ft_printf("*	u:%u",	-1));
+	printf("	(return:%d)	[input = -1]	*\n", printf("u:%u",	-1));
+
+	//=> (int) return_value = int fd(2,3,4...) + strlen(PRINTED_CHAR_NUM)
+	printf("\nTODO:...\n");
 	printf("	(return:%d)\n", printf("p	:%p", (av[1])));
 	printf("	(return:%d)\n", printf("x	:%x", atoi(av[1]))); 
 	printf("	(return:%d)\n", printf("X	:%X", atoi(av[1]))); 
