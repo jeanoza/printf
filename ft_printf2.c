@@ -6,7 +6,7 @@
 /*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:46:27 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/14 22:46:34 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2021/12/15 21:26:37 by kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,22 @@ int	ft_print_int_u(va_list ap)
 	return (count);
 }
 
-int	ft_print_int(va_list ap)
+int	ft_print_int(va_list ap, const char *base)
 {
-	int	nb;
-	int	count;
+	int		nb;
+	int		count;
+	size_t	base_len;
 
+	base_len = ft_strlen(base);
 	nb = va_arg(ap, int);
 	count = 0;
 	if (ap)
-		ft_putnbr(nb, &count);
+	{
+		if (base_len == 16)
+			ft_putnbr_hex(nb, &count, base);
+		else
+			ft_putnbr(nb, &count, base);
+	}
 	return (count);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:46:40 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/14 22:46:40 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2021/12/15 22:28:07 by kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
 void	ft_putnbr_u(unsigned int nb, int *count)
 {
+	int	tmp;
+
+	tmp = (nb % 10) + 48;
 	if (nb > 9)
 		ft_putnbr_u(nb / 10, count);
-	ft_putchar((nb % 10) + 48);
-	*count += 1;
+	*count += write(1, &tmp, 1);
 }
 
-void	ft_putnbr(int nb, int *count)
+void	ft_putnbr(int nb, int *count, const char *base)
 {
+	char	tmp;
+	size_t	base_len;
+
 	if (nb == -2147483648)
 	{
 		write(1, "-2147483648", 11);
@@ -44,15 +44,38 @@ void	ft_putnbr(int nb, int *count)
 	}
 	else
 	{
+		base_len = ft_strlen(base);
 		if (nb < 0)
 		{
-			ft_putchar('-');
+			*count += write(1, "-", 1);
 			nb = -nb;
-			*count += 1;
 		}
-		if (nb > 9)
-			ft_putnbr(nb / 10, count);
-		ft_putchar((nb % 10) + 48);
-		*count += 1;
+		if (nb > base_len - 1)
+			ft_putnbr(nb / base_len, count, base);
+		tmp = base[nb % base_len];
+		*count += write(1, &tmp, 1);
+	}
+}
+#include<stdio.h> //**TO_REMOVE
+
+void	ft_putnbr_hex(int nb, int *count, const char *base)
+{
+	char		tmp;
+	size_t		base_len;
+
+	base_len = ft_strlen(base);
+	if (nb < 0 && (-nb) < 2147483647)
+	{
+		// if (-nb * base_len < 2147483647)
+		// 	return ;
+		*count += write(1, &base[base_len - 1], 1);
+		ft_putnbr_hex(nb * base_len, count, base);
+	}
+	else
+	{
+		if (nb > base_len - 1)
+			ft_putnbr_hex(nb / base_len, count, base);
+		tmp = base[nb % base_len];
+		*count += write(1, &tmp, 1);
 	}
 }

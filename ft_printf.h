@@ -6,7 +6,7 @@
 /*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:46:31 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/14 22:56:55 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2021/12/15 21:26:44 by kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 int	ft_printf(const char *format, ...);
 int	ft_print_int_u(va_list ap);
-int	ft_print_int(va_list ap);
+int	ft_print_int(va_list ap, const char *base);
 int	ft_print_char(va_list ap);
 int	ft_print_str(va_list ap);
 
