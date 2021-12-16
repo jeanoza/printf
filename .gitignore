@@ -4,3 +4,4 @@ a.out.dSYM
 *.o
 
 main.c
+libftprintf.a

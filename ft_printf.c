@@ -6,7 +6,7 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/16 18:00:40 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/16 20:58:58 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_printf(const char *format, ...)
 	va_start(ap, format);
 	while (format && format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] == '\%')
 			res += ft_switch_case(format[++i], ap);
 		else
 			res += write(1, &format[i], 1);

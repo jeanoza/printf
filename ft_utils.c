@@ -6,7 +6,7 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:46:40 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/16 16:50:15 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/16 20:59:29 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_putnbr(int nb, int *count, const char *base)
 			*count += write(1, "-", 1);
 			nb = -nb;
 		}
-		if (nb > base_len - 1)
+		if (nb > (int) base_len - 1)
 			ft_putnbr(nb / base_len, count, base);
 		tmp = base[nb % base_len];
 		*count += write(1, &tmp, 1);
@@ -58,12 +58,10 @@ void	ft_putnbr(int nb, int *count, const char *base)
 
 void	ft_put_hex(unsigned long long nb, int *count, const char *base)
 {
-	int		tmp;
-	size_t	base_len;
+	int	tmp;
 
-	base_len = ft_strlen(base);
-	if (nb > base_len - 1)
-		ft_put_hex(nb / base_len, count, base);
-	tmp = base[nb % base_len];
+	if (nb > 15)
+		ft_put_hex(nb / 16, count, base);
+	tmp = base[nb % 16];
 	*count += write(1, &tmp, 1);
 }
