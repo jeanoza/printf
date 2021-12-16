@@ -3,5 +3,4 @@
 a.out.dSYM
 *.o
 
-
-*.txt
+main.c

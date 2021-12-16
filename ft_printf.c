@@ -3,23 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
+/*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/15 21:52:00 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2021/12/16 18:00:40 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h> //**TO_REMOVE
-#include <xlocale.h> //**TO_REMOVE
 #include "ft_utils.h"
 #include "ft_printf.h"
 
 static int	ft_switch_case(char format, va_list ap)
 {
-	int	res;
-
-	res = 0;
 	if (format == '%')
 		return (write(1, "%", 1));
 	else if (format == 'c')
@@ -29,12 +25,14 @@ static int	ft_switch_case(char format, va_list ap)
 	else if (format == 'd' || format == 'i')
 		return (ft_print_int(ap, "0123456789"));
 	else if (format == 'x')
-		return (ft_print_int(ap, "0123456789abcdef"));
+		return (ft_print_int_u(ap, "0123456789abcdef"));
 	else if (format == 'X')
-		return (ft_print_int(ap, "0123456789ABCDEF"));
+		return (ft_print_int_u(ap, "0123456789ABCDEF"));
 	else if (format == 'u')
-		return (ft_print_int_u(ap));
-	return (res);
+		return (ft_print_int_u(ap, "0123456789"));
+	else if (format == 'p')
+		return (ft_print_address(ap));
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
@@ -44,73 +42,16 @@ int	ft_printf(const char *format, ...)
 	va_list	ap;
 
 	i = 0;
-	res = 2;
+	res = 0;
 	va_start(ap, format);
 	while (format && format[i])
 	{
 		if (format[i] == '%')
 			res += ft_switch_case(format[++i], ap);
 		else
-			write(1, &format[i], 1);
+			res += write(1, &format[i], 1);
 		++i;
 	}
 	va_end(ap);
 	return (res);
-}
-
-
-int	main(int ac, char **av)
-{
-	(void)ac;
-
-	printf("\n***	***	test with:	%s	<===	***	***	***	***	***	*\n\n*	ft_printf:\t\t\t\tprintf:						\n\n", av[1]);
-	//%c
-	printf("		(return:%d)\t\t", ft_printf("*	c:%c", *(av[1])));
-	printf("		(return:%d)			\n\n", printf("c:%c", *(av[1])));
-
-	//%s
-	printf("		(return:%d)\t\t", ft_printf("*	s:%s", (av[1])));
-	printf("		(return:%d)			\n", printf("s:%s", (av[1])));
-	printf("	(return:%d)\t\t", ft_printf("*	s:%s", (char *) (NULL)));
-	printf("	(return:%d)	[NULL]		\n\n", printf("s:%s", (char *) (NULL)));
-
-	//%d
-	printf("		(return:%d)\t\t", ft_printf("*	d:%d",	atoi(av[1])));
-	printf("		(return:%d)			\n", printf("d:%d",		atoi(av[1])));
-	printf("	(return:%d)\t\t", ft_printf("*	d:%d",	2147483647));
-	printf("	(return:%d)	[int max]	\n\n", printf("d:%d",		2147483647));
-	printf("	(return:%d)\t\t", ft_printf("*	d:%d",	-2147483648));
-	printf("	(return:%d)	[int min]	\n\n", printf("d:%d",		-2147483648));
-
-	//%i
-	printf("		(return:%d)\t\t", ft_printf("*	i:%i", atoi(av[1])));
-	printf("		(return:%d)			\n", printf("i:%i", atoi(av[1]))); // base 10(decimal)
-	printf("	(return:%d)\t\t", ft_printf("*	i:%i",	2147483647));
-	printf("	(return:%d)	[int max]	\n\n", printf("i:%i",		2147483647));
-
-	//%u
-	printf("		(return:%d)\t\t", ft_printf("*	u:%u", atoi(av[1]))); // unsigned int
-	printf("		(return:%d)			\n", printf("u:%u", atoi(av[1]))); // unsigned int
-	printf("	(return:%d)\t\t", ft_printf("*	u:%u",	4294967295));
-	printf("	(return:%d)	[unsigned max]	\n", printf("u:%u",	4294967295));
-	printf("	(return:%d)\t\t", ft_printf("*	u:%u",	-1));
-	printf("	(return:%d)	[input = -1]	\n\n", printf("u:%u",	-1));
-
-	//%% TODO:Return value....
-	printf("		(return:%d)\t\t", ft_printf("*	%%:%d%%", atoi(av[1])));
-	printf("		(return:%d)			\n\n", printf("%%:%d%%", atoi(av[1])));
-
-	//%x and %X
-	printf("		(return:%d)\t\t", ft_printf("*	x:0x%x", atoi(av[1]))); 
-	printf("		(return:%d)			\n", printf("x:0x%x", atoi(av[1]))); 
-	printf("		(return:%d)\t\t", ft_printf("*	X:0X%X", atoi(av[1]))); 
-	printf("		(return:%d)			\n", printf("X:0X%X", atoi(av[1]))); 
-	printf("	(return:%d)\t\t", ft_printf("*	X:0X%X", -1)); 
-	printf("	(return:%d)	[input = -1]	\n\n", printf("X:0X%X", -1)); 
-
-	//=> (int) return_value = int fd(2,3,4...) + strlen(PRINTED_CHAR_NUM)
-	//for %p => hex: -1 = F, -2 = E....
-	printf("\nTODO:...\n");
-	printf("	(return:%d)\n", printf("p:%p", (av[1])));
-	return (0);
 }
