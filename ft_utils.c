@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
+/*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 22:46:40 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/17 09:29:32 by kyubongchoi      ###   ########.fr       */
+/*   Created: 2021/12/17 18:17:20 by kychoi            #+#    #+#             */
+/*   Updated: 2021/12/17 18:18:50 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@ size_t	ft_strlen(const char *str)
 	while (str && str[i])
 		++i;
 	return (i);
-}
-
-void	ft_putnbr_u(unsigned int nb, int *count, const char *base)
-{
-	int		tmp;
-
-	if (nb > 9)
-		ft_putnbr_u(nb / 10, count, base);
-	tmp = base[nb % 10];
-	*count += write(1, &tmp, 1);
 }
 
 void	ft_putnbr(int nb, int *count, const char *base)
@@ -50,6 +40,16 @@ void	ft_putnbr(int nb, int *count, const char *base)
 		tmp = base[nb % 10];
 		*count += write(1, &tmp, 1);
 	}
+}
+
+void	ft_putnbr_u(unsigned int nb, int *count, const char *base)
+{
+	int		tmp;
+
+	if (nb > 9)
+		ft_putnbr_u(nb / 10, count, base);
+	tmp = base[nb % 10];
+	*count += write(1, &tmp, 1);
 }
 
 void	ft_put_hex(unsigned long long nb, int *count, const char *base)
