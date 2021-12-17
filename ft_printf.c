@@ -6,11 +6,10 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/17 18:06:45 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/17 18:22:55 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
 #include "ft_printf.h"
 
 static int	ft_switch_case(char format, va_list ap)
