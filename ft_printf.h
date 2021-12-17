@@ -6,7 +6,7 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:46:31 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/16 16:49:19 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/17 18:03:17 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <stdlib.h>
 # include "ft_utils.h"
 
 int	ft_printf(const char *format, ...);

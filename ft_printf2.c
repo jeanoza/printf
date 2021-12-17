@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
+/*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 22:46:27 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/17 01:28:43 kyubongchoi      ###   ########.fr       */
+/*   Created: 2021/12/17 18:00:29 by kychoi            #+#    #+#             */
+/*   Updated: 2021/12/17 18:00:37 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_print_str(va_list ap)
 	char	*str;
 
 	str = va_arg(ap, char *);
-	if (str && str[0] != '\0')
+	if (str)
 		return (write(1, str, ft_strlen(str)));
 	return (write(1, "(null)", 6));
 }
