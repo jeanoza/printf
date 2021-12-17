@@ -6,33 +6,44 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/17 18:22:55 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/17 18:43:32 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static int	ft_is_valid_flag(char c, char *flag)
+{
+	size_t	i;
+
+	i = 0;
+	while (flag && flag[i])
+	{
+		if (c == flag[i])
+			return (1);
+		++i;
+	}
+	return (0);
+}
+
 static int	ft_switch_case(char format, va_list ap)
 {
-	if (ap)
-	{
-		if (format == '%')
-			return (write(1, "%", 1));
-		else if (format == 'c')
-			return (ft_print_char(ap));
-		else if (format == 's')
-			return (ft_print_str(ap));
-		else if (format == 'd' || format == 'i')
-			return (ft_print_int(ap));
-		else if (format == 'x')
-			return (ft_print_int_u(ap, "0123456789abcdef"));
-		else if (format == 'X')
-			return (ft_print_int_u(ap, "0123456789ABCDEF"));
-		else if (format == 'u')
-			return (ft_print_int_u(ap, "0123456789"));
-		else if (format == 'p')
-			return (ft_print_address(ap));
-	}
+	if (format == '%')
+		return (write(1, "%", 1));
+	else if (format == 'c')
+		return (ft_print_char(ap));
+	else if (format == 's')
+		return (ft_print_str(ap));
+	else if (format == 'd' || format == 'i')
+		return (ft_print_int(ap));
+	else if (format == 'x')
+		return (ft_print_int_u(ap, "0123456789abcdef"));
+	else if (format == 'X')
+		return (ft_print_int_u(ap, "0123456789ABCDEF"));
+	else if (format == 'u')
+		return (ft_print_int_u(ap, "0123456789"));
+	else if (format == 'p')
+		return (ft_print_address(ap));
 	return (0);
 }
 
@@ -49,7 +60,9 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '\%')
 		{
-			if (format[++i])
+			if (!ft_is_valid_flag(format[++i], "\%csdixXup"))
+				break ;
+			if (format[i])
 				res += ft_switch_case(format[i], ap);
 		}
 		else
