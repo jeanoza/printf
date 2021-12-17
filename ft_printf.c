@@ -6,7 +6,7 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:17:15 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/17 18:02:22 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/17 18:06:45 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_switch_case(char format, va_list ap)
 		else if (format == 's')
 			return (ft_print_str(ap));
 		else if (format == 'd' || format == 'i')
-			return (ft_print_int(ap, "0123456789"));
+			return (ft_print_int(ap));
 		else if (format == 'x')
 			return (ft_print_int_u(ap, "0123456789abcdef"));
 		else if (format == 'X')

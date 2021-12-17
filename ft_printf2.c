@@ -6,7 +6,7 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:00:29 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/17 18:00:37 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/17 18:13:22 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ int	ft_print_int_u(va_list ap, const char *base)
 	return (count);
 }
 
-int	ft_print_int(va_list ap, const char *base)
+int	ft_print_int(va_list ap)
 {
 	int		nb;
 	int		count;
 
 	nb = va_arg(ap, int);
 	count = 0;
-	ft_putnbr(nb, &count, base);
+	ft_putnbr(nb, &count, "0123456789");
 	return (count);
 }
 
 int	ft_print_char(va_list ap)
 {
-	int	c;
+	unsigned char	c;
 
-	c = va_arg(ap, int);
+	c = (unsigned char) va_arg(ap, int);
 	return (write(1, &c, 1));
 }
 

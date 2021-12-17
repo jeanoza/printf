@@ -6,7 +6,7 @@
 /*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:46:31 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/17 18:03:17 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/17 18:13:23 by kychoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	ft_printf(const char *format, ...);
 int	ft_print_int_u(va_list ap, const char *base);
-int	ft_print_int(va_list ap, const char *base);
+int	ft_print_int(va_list ap);
 int	ft_print_char(va_list ap);
 int	ft_print_str(va_list ap);
 int	ft_print_address(va_list ap);
