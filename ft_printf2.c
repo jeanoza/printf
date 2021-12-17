@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:46:27 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2021/12/16 20:58:34 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/17 01:28:43 kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	ft_print_int_u(va_list ap, const char *base)
 
 	nb = va_arg(ap, unsigned int);
 	count = 0;
-	if (nb)
+	if (ft_strlen(base) == 16)
+		ft_put_hex(nb, &count, base);
+	else
 		ft_putnbr_u(nb, &count, base);
 	return (count);
 }
@@ -31,19 +33,16 @@ int	ft_print_int(va_list ap, const char *base)
 
 	nb = va_arg(ap, int);
 	count = 0;
-	if (nb)
-		ft_putnbr(nb, &count, base);
+	ft_putnbr(nb, &count, base);
 	return (count);
 }
 
 int	ft_print_char(va_list ap)
 {
-	char	c;
+	int	c;
 
 	c = va_arg(ap, int);
-	if (c)
-		return (write(1, &c, 1));
-	return (0);
+	return (write(1, &c, 1));
 }
 
 int	ft_print_str(va_list ap)

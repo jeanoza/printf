@@ -5,3 +5,6 @@ a.out.dSYM
 
 main.c
 libftprintf.a
+
+printfTester/
+*.dSYM/
