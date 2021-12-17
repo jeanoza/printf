@@ -50,7 +50,7 @@ int	ft_print_str(va_list ap)
 	char	*str;
 
 	str = va_arg(ap, char *);
-	if (str)
+	if (str && str[0] != '\0')
 		return (write(1, str, ft_strlen(str)));
 	return (write(1, "(null)", 6));
 }
