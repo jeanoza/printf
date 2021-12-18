@@ -3,26 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kychoi <kychoi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 18:00:29 by kychoi            #+#    #+#             */
-/*   Updated: 2021/12/17 18:15:47 by kychoi           ###   ########.fr       */
+/*   Updated: 2021/12/18 19:08:11 by kyubongchoi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_int_u(va_list ap, const char *base)
+int	ft_print_int_u(va_list ap)
 {
 	unsigned int	nb;
 	int				count;
 
 	nb = va_arg(ap, unsigned int);
 	count = 0;
-	if (ft_strlen(base) == 16)
-		ft_put_hex(nb, &count, base);
-	else
-		ft_putnbr_u(nb, &count, base);
+	ft_putnbr_u(nb, &count, "0123456789");
 	return (count);
 }
 
